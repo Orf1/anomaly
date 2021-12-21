@@ -1,0 +1,3 @@
+rootProject.name = 'anomaly'
+include 'plugin'
+include 'server'

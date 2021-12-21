@@ -1,0 +1,29 @@
+plugins {
+    id 'org.jetbrains.kotlin.jvm' version '1.6.10'
+}
+
+allprojects {
+    group 'gg.scala'
+    version '1.0.0'
+
+    repositories {
+        mavenCentral()
+    }
+
+    subprojects {
+        apply plugin: "org.jetbrains.kotlin.jvm"
+
+        dependencies {
+            compileOnly "org.jetbrains.kotlin:kotlin-stdlib"
+        }
+
+        compileKotlin {
+            kotlinOptions.javaParameters = true
+            kotlinOptions.jvmTarget = "1.8"
+        }
+    }
+
+    jar {
+        from { configurations.compileClasspath.collect { it.isDirectory() ? it : zipTree(it) } }
+    }
+}
