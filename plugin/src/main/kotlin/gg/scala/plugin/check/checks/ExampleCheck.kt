@@ -28,7 +28,7 @@ class ExampleCheck : EventCheck()
 
                 if (location!!.x >= 5)
                 {
-                    player.sendMessage("I think you're gay. (X is greater than 5)")
+                    //player.sendMessage("I think you're gay. (X is greater than 5)")
                 }
             }
             is AsyncPlayerChatEvent ->

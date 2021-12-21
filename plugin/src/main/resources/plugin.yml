@@ -1,6 +1,6 @@
 name: Anomaly
 version: 1.0.0
-main: gg.scala.anomaly.plugin.AnomalyPlugin
+main: gg.scala.plugin.AnomalyPlugin
 api-version: 1.18
 authors:
   - Orf1

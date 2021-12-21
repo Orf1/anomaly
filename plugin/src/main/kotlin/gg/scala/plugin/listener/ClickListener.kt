@@ -1,33 +1,28 @@
 package gg.scala.plugin.listener
 
+import gg.scala.plugin.AnomalyPlugin
+import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.player.PlayerInteractEvent
 import java.util.*
 
-class ClickListener : Listener
+class ClickListener(val plugin: AnomalyPlugin) : Listener
 {
 
-    companion object
-    {
-        @JvmStatic
-        val START_MEASURING = hashMapOf<UUID, Long>()
-    }
-
+    private val startMeasuring = hashMapOf<UUID, Long>()
     private val clickMap = hashMapOf<UUID, MutableList<Long>>()
 
     @EventHandler
-    fun click(
-        event: PlayerInteractEvent
-    )
+    fun click(event: PlayerInteractEvent)
     {
         val player = event.player
 
-        if (START_MEASURING.containsKey(player.uniqueId))
+        if (startMeasuring.containsKey(player.uniqueId))
         {
-            val startTime = START_MEASURING[player.uniqueId]!!
+            val startTime = startMeasuring[player.uniqueId]!!
 
-            if (startTime - System.currentTimeMillis() <= 5000)
+            if (System.currentTimeMillis() - startTime <= 5000)
             {
                 if (event.action.name.contains("LEFT"))
                 {
@@ -37,13 +32,27 @@ class ClickListener : Listener
                 }
             } else
             {
-                player.sendMessage(
-                    "Total Clicks: ${clickMap[player.uniqueId]!!.size}"
-                )
 
+
+                clickMap[player.uniqueId]?.get(0)
+                player.sendMessage("Total Clicks: ${clickMap[player.uniqueId]!!.size}")
+                clickMap[player.uniqueId]?.forEach { player.sendMessage("" +  it); }
+                for (i in 0..clickMap.size-1) {
+                    if (i == 0) {
+                        player.sendMessage("Click Offsets:")
+                    } else {
+                        val offset = clickMap[player.uniqueId]!![i] - clickMap[player.uniqueId]!![i-1]
+                        player.sendMessage("Offset: $offset")
+                    }
+                }
                 clickMap[player.uniqueId] = mutableListOf()
-                START_MEASURING.remove(player.uniqueId)
+                startMeasuring.remove(player.uniqueId)
+
             }
         }
+    }
+
+    fun measure(player: Player) {
+        plugin.clickListener.startMeasuring[player.uniqueId] = System.currentTimeMillis()
     }
 }

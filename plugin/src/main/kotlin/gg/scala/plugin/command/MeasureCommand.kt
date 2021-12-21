@@ -1,14 +1,13 @@
 package gg.scala.plugin.command
 
 import gg.scala.plugin.AnomalyPlugin
-import gg.scala.plugin.listener.ClickListener
 import org.bukkit.Bukkit
 import org.bukkit.ChatColor
 import org.bukkit.command.Command
 import org.bukkit.command.CommandExecutor
 import org.bukkit.command.CommandSender
 
-class MeasureCommand : CommandExecutor
+class MeasureCommand(val plugin: AnomalyPlugin) : CommandExecutor
 {
     override fun onCommand(
         sender: CommandSender,
@@ -31,7 +30,8 @@ class MeasureCommand : CommandExecutor
             return true
         }
 
-        ClickListener.START_MEASURING[target.uniqueId] = System.currentTimeMillis()
+        plugin.clickListener.measure(target);
+
         return true
     }
 }
