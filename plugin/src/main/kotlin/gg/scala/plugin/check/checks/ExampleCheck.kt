@@ -1,7 +1,6 @@
 package gg.scala.plugin.check.checks
 
 import gg.scala.plugin.check.EventCheck
-import org.bukkit.entity.Player
 import org.bukkit.event.Event
 import org.bukkit.event.player.AsyncPlayerChatEvent
 import org.bukkit.event.player.PlayerMoveEvent

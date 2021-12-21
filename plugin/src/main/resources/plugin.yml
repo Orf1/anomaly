@@ -8,3 +8,5 @@ authors:
   - Growly
 depend:
   - ProtocolLib
+commands:
+  measure:
