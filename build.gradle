@@ -14,7 +14,7 @@ allprojects {
         apply plugin: "org.jetbrains.kotlin.jvm"
 
         dependencies {
-            compileOnly 'org.jetbrains.kotlin:kotlin-stdlib:1.6.0'
+            implementation 'org.jetbrains.kotlin:kotlin-stdlib:1.6.0'
         }
 
         compileKotlin {
@@ -27,4 +27,6 @@ allprojects {
         from { configurations.compileClasspath.collect { it.isDirectory() ? it : zipTree(it) } }
         duplicatesStrategy 'exclude'
     }
+
+
 }

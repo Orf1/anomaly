@@ -1,2 +1,5 @@
 group 'gg.scala'
 version '1.0.0'
+jar {
+    from { configurations.compileClasspath.collect { it.isDirectory() ? it : zipTree(it) } }
+}
