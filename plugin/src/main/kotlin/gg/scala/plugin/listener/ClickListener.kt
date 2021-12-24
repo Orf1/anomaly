@@ -31,7 +31,7 @@ class ClickListener(val plugin: AnomalyPlugin) : Listener {
                 clickMap[player.uniqueId]?.get(0)
                 player.sendMessage("Total Clicks: ${clickMap[player.uniqueId]!!.size}")
                 clickMap[player.uniqueId]?.forEach { player.sendMessage("" + it); }
-                for (i in 0..clickMap.size - 1) {
+                for (i in 0 until clickMap.size) {
                     if (i == 0) {
                         player.sendMessage("Click Offsets:")
                     } else {
